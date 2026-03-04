@@ -8,6 +8,10 @@
   const effectsToggle = document.getElementById("effectsToggle");
   const contactForm = document.getElementById("contactForm");
   const langButtons = document.querySelectorAll("[data-set-lang]");
+  const toolDetail = document.getElementById("toolDetail");
+  const toolDetailTitle = document.getElementById("toolDetailTitle");
+  const toolDetailDefinition = document.getElementById("toolDetailDefinition");
+  const toolDetailExperience = document.getElementById("toolDetailExperience");
 
   const MODE_KEY = "portfolio_mode";
   const EFFECTS_KEY = "portfolio_effects";
@@ -62,6 +66,9 @@
       ransom_p2: "Tambem possui modulos opcionais para estudo tecnico (anti-sandbox, persistencia e movimento lateral por ARP scan). O projeto nao e publico para evitar abuso e manter o uso estritamente defensivo em ambiente isolado.",
       ransom_tag: "Projeto privado | Sem link de repositorio",
       tools_title: "Tools & Technologies",
+      tools_hint: "Use as setas para navegar pelas ferramentas.",
+      carousel_prev_label: "Ferramenta anterior",
+      carousel_next_label: "Proxima ferramenta",
       focus_title: "Cybersecurity Focus",
       focus_l1: "Web reconnaissance e mapeamento de superficie de ataque.",
       focus_l2: "OSINT para coleta e correlacao de sinais publicos.",
@@ -146,6 +153,9 @@
       ransom_p2: "It also includes optional study modules (anti-sandbox, persistence and ARP-scan lateral movement). This project is kept private to prevent misuse and preserve strictly defensive research in isolated environments.",
       ransom_tag: "Private project | No repository link",
       tools_title: "Tools & Technologies",
+      tools_hint: "Use the arrows to browse the tools.",
+      carousel_prev_label: "Previous tool",
+      carousel_next_label: "Next tool",
       focus_title: "Cybersecurity Focus",
       focus_l1: "Web reconnaissance and attack surface mapping.",
       focus_l2: "OSINT for public-signal collection and correlation.",
@@ -185,7 +195,107 @@
     }
   };
 
+  const toolProfiles = {
+    python: {
+      pt: {
+        title: "Python",
+        definition: "Python e uma linguagem de programacao de alto nivel, muito usada para scripts, automacao, dados e seguranca.",
+        experience: "E a minha linguagem nativa e onde mais desenvolvo. Meu foco nao e software tradicional: eu uso Python para automacoes e scripts que eliminam tarefas chatas e fazem o trabalho pesado por mim."
+      },
+      en: {
+        title: "Python",
+        definition: "Python is a high-level programming language widely used for scripting, automation, data and security workflows.",
+        experience: "It is my native language and where I build the most. I am not focused on traditional software; I use Python to automate repetitive work and build scripts that do the heavy lifting for me."
+      }
+    },
+    networking: {
+      pt: {
+        title: "Networking",
+        definition: "Networking e a base da comunicacao entre dispositivos, protocolos, rotas e servicos na rede.",
+        experience: "No meu contexto, networking e essencial para recon, leitura de superficie de ataque e entendimento real de como os servicos se conectam e se expõem."
+      },
+      en: {
+        title: "Networking",
+        definition: "Networking is the foundation of communication between devices, protocols, routes and services.",
+        experience: "In my workflow, networking is core for reconnaissance, attack-surface mapping and understanding how services actually connect and expose themselves."
+      }
+    },
+    osint: {
+      pt: {
+        title: "OSINT",
+        definition: "OSINT (Open Source Intelligence) e a coleta e analise de informacoes publicamente disponiveis em fontes abertas.",
+        experience: "Essa e uma area que eu amo. Sempre gostei de analisar dados, principalmente os que as pessoas esquecem publicos na internet. E muito interessante descobrir contexto real a partir desses rastros."
+      },
+      en: {
+        title: "OSINT",
+        definition: "OSINT (Open Source Intelligence) is the collection and analysis of publicly available information from open sources.",
+        experience: "This is one of my favorite areas. I enjoy analyzing data, especially the traces people leave exposed online. It is powerful to build real context from those public signals."
+      }
+    },
+    automation: {
+      pt: {
+        title: "Automacao",
+        definition: "Automacao e o uso de codigo para executar tarefas de forma repetivel, confiavel e com menos intervencao manual.",
+        experience: "Eu gosto muito de automacao porque adoro ver o que programei funcionando sozinho. Meu objetivo e transformar processos manuais em fluxos automaticos e eficientes."
+      },
+      en: {
+        title: "Automation",
+        definition: "Automation is the use of code to run tasks in a repeatable, reliable way with minimal manual intervention.",
+        experience: "I like automation because I enjoy seeing what I built running by itself. My goal is to transform manual work into efficient, automated workflows."
+      }
+    },
+    kali: {
+      pt: {
+        title: "Kali Linux",
+        definition: "Kali Linux e uma distribuicao focada em seguranca ofensiva, com um grande conjunto de ferramentas para teste e analise.",
+        experience: "Para o meu curso, o Kali e um arsenal poderoso e tambem mata minha curiosidade tecnica. Mesmo usando ferramentas prontas, eu prefiro desenvolver meus proprios programas para deixar tudo do meu jeito."
+      },
+      en: {
+        title: "Kali Linux",
+        definition: "Kali Linux is a security-focused distribution with a large toolkit for offensive testing and analysis.",
+        experience: "For my studies, Kali is a powerful arsenal and a way to satisfy technical curiosity. Even when I use existing tools, I still prefer building my own so everything fits my workflow."
+      }
+    },
+    cli: {
+      pt: {
+        title: "CLI Tools",
+        definition: "CLI (Command Line Interface) e a interacao com sistemas por linha de comando, de forma direta e scriptavel.",
+        experience: "Eu uso CLI para ganhar velocidade, repetir processos com precisao e integrar ferramentas em pipelines de automacao e recon."
+      },
+      en: {
+        title: "CLI Tools",
+        definition: "CLI (Command Line Interface) is direct system interaction through commands, which is highly scriptable and efficient.",
+        experience: "I use CLI tools for speed, reproducibility and tight integration into automation and reconnaissance pipelines."
+      }
+    },
+    javascript: {
+      pt: {
+        title: "JavaScript",
+        definition: "JavaScript e uma linguagem essencial para web, usada no frontend e tambem em automacoes e ferramentas no ecossistema Node.js.",
+        experience: "Uso JavaScript em projetos web e em scripts utilitarios quando preciso de integracao rapida com interfaces e fluxos baseados em navegador."
+      },
+      en: {
+        title: "JavaScript",
+        definition: "JavaScript is a core web language used in front-end systems and also for automation/tooling in the Node.js ecosystem.",
+        experience: "I use JavaScript in web projects and utility scripts when I need quick integration with interfaces and browser-based flows."
+      }
+    },
+    php: {
+      pt: {
+        title: "PHP",
+        definition: "PHP e uma linguagem backend madura para aplicacoes web dinamicas, APIs e integracao com banco de dados.",
+        experience: "Desenvolver sites com backend e algo que acho interessante. PHP ainda vive muito bem e eu uso para estudar autenticacao, fluxo de sessao e logica de servidor."
+      },
+      en: {
+        title: "PHP",
+        definition: "PHP is a mature backend language for dynamic web applications, APIs and database integration.",
+        experience: "Building backend-driven websites is something I enjoy. PHP is still very relevant, and I use it to study authentication, session flow and server-side logic."
+      }
+    }
+  };
+
   let currentLang = "pt";
+  let selectedTool = "python";
   let matrixAnimationId = null;
   let matrixRunning = false;
   let matrixResizeHandler = null;
@@ -193,6 +303,28 @@
   function t(key) {
     const bundle = i18n[currentLang] || i18n.pt;
     return bundle[key] || key;
+  }
+
+  function renderToolDetail(toolKey, animate = true) {
+    if (!toolDetail || !toolDetailTitle || !toolDetailDefinition || !toolDetailExperience) {
+      return;
+    }
+
+    const profile = toolProfiles[toolKey] || toolProfiles.python;
+    const localized = profile[currentLang] || profile.pt;
+
+    toolDetailTitle.textContent = localized.title;
+    toolDetailDefinition.textContent = localized.definition;
+    toolDetailExperience.textContent = localized.experience;
+
+    if (!animate) {
+      toolDetail.classList.add("show");
+      return;
+    }
+
+    toolDetail.classList.remove("show");
+    void toolDetail.offsetWidth;
+    toolDetail.classList.add("show");
   }
 
   function applyLanguage(lang) {
@@ -227,6 +359,8 @@
     langButtons.forEach((btn) => {
       btn.classList.toggle("active", btn.dataset.setLang === currentLang);
     });
+
+    renderToolDetail(selectedTool, false);
 
     const effectsEnabled = !body.classList.contains("effects-off");
     effectsToggle.textContent = effectsEnabled ? t("effects_disable") : t("effects_enable");
@@ -332,6 +466,62 @@
     });
   }
 
+  function initToolsCarousel() {
+    const carousels = document.querySelectorAll("[data-tools-carousel]");
+    if (!carousels.length) return;
+
+    carousels.forEach((carousel) => {
+      const viewport = carousel.querySelector("[data-carousel-viewport]");
+      const prevBtn = carousel.querySelector("[data-carousel-prev]");
+      const nextBtn = carousel.querySelector("[data-carousel-next]");
+      const slides = Array.from(carousel.querySelectorAll(".tool-slide[data-tool]"));
+      if (!viewport || !prevBtn || !nextBtn || !slides.length) return;
+
+      const step = () => Math.max(180, Math.floor(viewport.clientWidth * 0.76));
+
+      prevBtn.addEventListener("click", () => {
+        viewport.scrollBy({ left: -step(), behavior: "smooth" });
+      });
+
+      nextBtn.addEventListener("click", () => {
+        viewport.scrollBy({ left: step(), behavior: "smooth" });
+      });
+
+      function activateTool(toolKey, animate = true) {
+        selectedTool = toolKey;
+        slides.forEach((slide) => {
+          slide.classList.toggle("active", slide.dataset.tool === toolKey);
+        });
+        renderToolDetail(toolKey, animate);
+
+        const selectedSlide = slides.find((slide) => slide.dataset.tool === toolKey);
+        if (selectedSlide) {
+          selectedSlide.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        }
+      }
+
+      slides.forEach((slide) => {
+        slide.addEventListener("click", () => activateTool(slide.dataset.tool));
+        slide.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            activateTool(slide.dataset.tool);
+          }
+        });
+      });
+
+      viewport.addEventListener("click", (event) => {
+        const target = event.target.closest(".tool-slide[data-tool]");
+        if (target) {
+          activateTool(target.dataset.tool);
+        }
+      });
+
+      const preSelected = slides.find((slide) => slide.classList.contains("active"));
+      activateTool((preSelected || slides[0]).dataset.tool, false);
+    });
+  }
+
   function startMatrix() {
     if (matrixRunning) return;
     matrixRunning = true;
@@ -413,6 +603,7 @@
     initLanguageControl();
     initEffectsControl();
     initContactForm();
+    initToolsCarousel();
   }
 
   init();

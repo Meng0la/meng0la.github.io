@@ -66,7 +66,7 @@
         <button class="tab-btn" data-tab="tools" data-i18n="tab_tools">Tools & Technologies</button>
         <button class="tab-btn" data-tab="focus" data-i18n="tab_focus">Cybersecurity Focus</button>
         <button class="tab-btn" data-tab="research" data-i18n="tab_research">Research & Experiments</button>
-        <button class="tab-btn" data-tab="stats" data-i18n="tab_stats">GitHub Stats</button>
+        <!--<button class="tab-btn" data-tab="stats" data-i18n="tab_stats">GitHub Stats</button> -->
         <button class="tab-btn" data-tab="contact" data-i18n="tab_contact">Contact</button>
       </nav>
     </aside>
@@ -138,20 +138,70 @@
 
       <article id="tools" class="tab-panel">
         <h2 data-i18n="tools_title">Tools & Technologies</h2>
-        <div class="badge-cloud">
-          <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
-          <img src="https://img.shields.io/badge/Networking-0A66C2?style=flat-square&logo=cloudflare&logoColor=white" alt="Networking">
-          <img src="https://img.shields.io/badge/OSINT-111111?style=flat-square&logo=probot&logoColor=white" alt="OSINT">
-          <img src="https://img.shields.io/badge/Automation-1B5E20?style=flat-square&logo=ansible&logoColor=white" alt="Automation">
-          <img src="https://img.shields.io/badge/Web_Scraping-2E8B57?style=flat-square&logo=scrapy&logoColor=white" alt="Web Scraping">
-          <img src="https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black" alt="Linux">
-          <img src="https://img.shields.io/badge/Kali_Linux-268BEE?style=flat-square&logo=kalilinux&logoColor=white" alt="Kali Linux">
-          <img src="https://img.shields.io/badge/CLI_Tools-20232A?style=flat-square&logo=gnubash&logoColor=white" alt="CLI Tools">
-          <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript">
-          <img src="https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP">
-          <img src="https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white" alt="SQLite">
-          <img src="https://img.shields.io/badge/Git-181717?style=flat-square&logo=git&logoColor=white" alt="Git">
+        <div class="tools-carousel" data-tools-carousel>
+          <button
+            type="button"
+            class="carousel-btn prev"
+            data-carousel-prev
+            aria-label="Ferramenta anterior"
+            data-i18n-aria-label="carousel_prev_label"
+          >
+            ◀
+          </button>
+
+          <div class="tools-viewport" data-carousel-viewport>
+            <div class="tools-track">
+              <article class="tool-slide active" data-tool="python" tabindex="0" role="button">
+                <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+                <p>Python</p>
+              </article>
+              <article class="tool-slide" data-tool="networking" tabindex="0" role="button">
+                <img src="https://img.shields.io/badge/Networking-0A66C2?style=flat-square&logo=cloudflare&logoColor=white" alt="Networking">
+                <p>Networking</p>
+              </article>
+              <article class="tool-slide" data-tool="osint" tabindex="0" role="button">
+                <img src="https://img.shields.io/badge/OSINT-111111?style=flat-square&logo=probot&logoColor=white" alt="OSINT">
+                <p>OSINT</p>
+              </article>
+              <article class="tool-slide" data-tool="automation" tabindex="0" role="button">
+                <img src="https://img.shields.io/badge/Automation-1B5E20?style=flat-square&logo=ansible&logoColor=white" alt="Automation">
+                <p>Automation</p>
+              </article>
+              <article class="tool-slide" data-tool="kali" tabindex="0" role="button">
+                <img src="https://img.shields.io/badge/Kali_Linux-268BEE?style=flat-square&logo=kalilinux&logoColor=white" alt="Kali Linux">
+                <p>Kali Linux</p>
+              </article>
+              <article class="tool-slide" data-tool="cli" tabindex="0" role="button">
+                <img src="https://img.shields.io/badge/CLI_Tools-20232A?style=flat-square&logo=gnubash&logoColor=white" alt="CLI Tools">
+                <p>CLI Tools</p>
+              </article>
+              <article class="tool-slide" data-tool="javascript" tabindex="0" role="button">
+                <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript">
+                <p>JavaScript</p>
+              </article>
+              <article class="tool-slide" data-tool="php" tabindex="0" role="button">
+                <img src="https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP">
+                <p>PHP</p>
+              </article>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            class="carousel-btn next"
+            data-carousel-next
+            aria-label="Proxima ferramenta"
+            data-i18n-aria-label="carousel_next_label"
+          >
+            ▶
+          </button>
         </div>
+        <p class="small-note tools-hint" data-i18n="tools_hint">Use as setas para navegar pelas ferramentas.</p>
+        <section class="tool-detail show" id="toolDetail" aria-live="polite">
+          <h3 id="toolDetailTitle"></h3>
+          <p class="tool-detail-definition" id="toolDetailDefinition"></p>
+          <p class="tool-detail-experience" id="toolDetailExperience"></p>
+        </section>
       </article>
 
       <article id="focus" class="tab-panel">
