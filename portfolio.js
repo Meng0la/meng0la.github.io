@@ -105,7 +105,7 @@
     mail_subject_default: "Contato via Portfólio",
     mail_label_name: "Nome",
     mail_label_email: "E-mail"
-    }
+    },
   
     en: {
       mode_label: "Main Mode",
